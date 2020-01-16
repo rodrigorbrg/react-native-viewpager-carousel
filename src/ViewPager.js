@@ -59,6 +59,8 @@ export default class ViewPager extends PureComponent {
     renderPage: PropTypes.func,
     onPageChange: PropTypes.func,
     onScroll: PropTypes.func,
+
+    currentVisiblePageNumber: PropTypes.func
   }
 
   constructor(props) {
@@ -356,11 +358,11 @@ export default class ViewPager extends PureComponent {
           width: this.props.pageWidth,
         }]}
       >
-        {this.props.renderPage({
+        { (item.key != 'x0' && item.key != 'xf') ? this.props.renderPage({
           data: item,
           _pageNumber: item._pageNumber,
           _pageIndex: item._pageIndex,
-        })}
+        }) : null }
       </View>
     )
 
@@ -437,6 +439,7 @@ export default class ViewPager extends PureComponent {
                 isThresholdPage={item._isThresholdPage || false}
                 lazyrender={this.props.lazyrender}
                 pageWidth={this.props.pageWidth}
+                visiblePageNumberCallback={this.props.currentVisiblePageNumber}
                 lazyrenderThreshold={this.props.lazyrenderThreshold}
               >
                 {this._renderPage(item, index)}

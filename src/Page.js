@@ -20,6 +20,7 @@ export default class Page extends PureComponent {
     lazyrenderThreshold: PropTypes.number,
     maxPageNumber: PropTypes.number,
     isThresholdPage: PropTypes.bool,
+    visiblePageNumberCallback: PropTypes.func
   }
 
   static defaultProps = {
@@ -43,6 +44,9 @@ export default class Page extends PureComponent {
 
   onPageChange = currentVisiblePageNumber => {
     const shouldRender = this._shouldPageRender(this.props.pageNumber, currentVisiblePageNumber)
+
+    if(typeof this.props.visiblePageNumberCallback === 'function')
+      this.props.visiblePageNumberCallback(currentVisiblePageNumber)
     if (
       this.props.lazyrender === true &&
       this.state.shouldRender !== shouldRender

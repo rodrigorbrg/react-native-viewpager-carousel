@@ -40,6 +40,8 @@ class TabbedPager extends PureComponent {
     renderPage: PropTypes.func.isRequired,
     renderTab: PropTypes.func.isRequired,
     onPageChange: PropTypes.func,
+
+    currentVisiblePageNumber: PropTypes.func
   }
 
   static defaultProps = {
@@ -168,6 +170,10 @@ class TabbedPager extends PureComponent {
     return this.props.renderPage(item)
   }
 
+  _currentVisiblePageNumber = (currentVisiblePageNumber) => {
+    this.props.currentVisiblePageNumber(currentVisiblePageNumber)
+  }
+
   render() {
     return (
       <View style={this.props.fullScreen ? styles.fullScreen : null}>
@@ -190,6 +196,7 @@ class TabbedPager extends PureComponent {
           initialPage={this.props.initialPage}
           onPageChange={this._onPageChange}
           onScroll={this._onScroll}
+          currentVisiblePageNumber={this._currentVisiblePageNumber}
           thresholdPages={this.contentThresholdPages}
           experimentalMirroring={this.props.experimentalMirroring}
         />
